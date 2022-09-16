@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Add Worker</title>
+    <style>
+        div {
+            margin-top: 10px;
+        }
+
+        p {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="/2" target="_blank">The other page</a>
+    </div>
+    <div>
+        <label for="number">Number</label>
+        <input type="text" id="number" value="0" />
+    </div>
+    <div><button id="square">Square</button></div>
+    <div id="result">Result</div>
+
+    <p>
+Shared Worker has a `onconnect` method. 
+We can save tab instance while tab connecting to shared worker.
+Then we are able to post message to all tabs later.
+So we can share data between tabs by shared worker.
+    </p>
+
+    <!-- <script src="/mainWorker.js"></script> -->
+    <script src="/main.js"></script>
+</body>
