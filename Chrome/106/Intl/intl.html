@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="origin-trial"
+        content="Aw0/VBaSpR35KUWf94+YZ7ki6LS06lQzGx33SGIyNe5xdvipD71lVfO/ot9xIhZn9+ntQsN6GlPR2Ys98pnJCAoAAABteyJvcmlnaW4iOiJodHRwczovLzEyNy4wLjAuMTo5NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY2MTI5OTE5OSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <style>
+        pre {
+            background-color: lightgray;
+            padding: 20px 10px 20px;
+        }
+
+        .board {
+            padding: 10px;
+        }
+
+        label {
+            display: block;
+            border-top: 1px solid #dcdcdc;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        <label>Displaying price range with <b>formatRange</b></label>
+    <pre>
+        const nf = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "EUR",
+            maximumFractionDigits: 1,
+        }).formatRange(3.9, 5.1);
+    </pre>
+    <div id="board1" class="board"></div>
+    <script>
+        const nf = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "EUR",
+            maximumFractionDigits: 1,
+        }).formatRange(3.9, 5.1);
+        document.getElementById("board1").innerText = nf;
+    </script>
+    </p>
+
+    <p>
+        <label>Displaying price range with <b>formatRange</b></label>
+    <pre>
+        const strip = new Intl.NumberFormat('en-US', {
+            style: 'percent',
+            minimumFractionDigits: 2,
+            trailingZeroDisplay: 'stripIfInteger',
+          }).format(0.42);
+          
+          const auto = new Intl.NumberFormat('en-US', {
+            style: 'percent',
+            minimumFractionDigits: 2,
+            trailingZeroDisplay: 'auto',
+          }).format(0.423);
+    </pre>
+    <div id="board2" class="board"></div>
+    <script>
+        const strip1 = new Intl.NumberFormat('en-US', {
+            style: 'percent',
+            minimumFractionDigits: 2,
+            trailingZeroDisplay: 'stripIfInteger',
+        }).format(0.42);
+
+        const strip2 = new Intl.NumberFormat('en-US', {
+            style: 'percent',
+            minimumFractionDigits: 2,
+            trailingZeroDisplay: 'stripIfInteger',
+        }).format(0.423);
+        document.getElementById("board2").innerHTML = `0.42 => ${strip1}<br/> 0.423 => ${strip2}`;
+    </script>
+    </p>
+    <p>
+        <label>Popup API  (turn on "Experimental web platform features" flag)</label>
+    <div id="my-pop-up" popup>
+        Pop-up content!
+    </div>
+    <button popuptoggletarget="my-pop-up">
+        Toggle Pop-up button
+    </button>
+    </p>
+</body>
+
+</html>

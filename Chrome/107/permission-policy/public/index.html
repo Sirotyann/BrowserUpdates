@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function fullscreen() {
+            document.getElementById('pineapple').requestFullscreen();
+        }
+    </script>
+    <style>
+        section {
+            margin: 10px;
+            border-top: 1px solid #dcdcdc;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello</h1>
+    <section>
+        <div><button onclick="fullscreen()">FullScreen</button></div>
+        <img src="/PineApple.jpg" style="width: 100px" id="pineapple" />
+    </section>
+    <section>
+        <label>http://local.test.com:3000/snowman.html</label>
+        <iframe src="http://local.test.com:3000/snowman.html" width="250" height="180" allow="fullscreen"></iframe>
+        <p>
+            Can request fullscreen, because response header has a 'Permissions-Policy: fullscreen=(self
+            "http://local.test.com:3000")'<br />
+            Permissions-Policy works on Chrome.<br />
+            Firefox depends on 'allow="fullscreen"' attribute at iframe tag.
+        </p>
+    </section>
+    <section>
+        <label>http://example.com:3000/snowman.html</label>
+        <iframe src="http://example.com:3000/snowman.html" width="250" height="180" allow="fullscreen"></iframe>
+        <p>Cannot request fullscreen</p>
+    </section>
+</body>
+
+</html>
