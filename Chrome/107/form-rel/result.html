@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+       
+    </style>
+</head>
+
+<body>
+    <h1>Result</h1>
+    <script>
+        if(window.opener) {
+            alert("window.opener found");
+            console.log(window.opener.document.forms);
+        } else {
+            alert("window.opener not found");
+        }
+    </script>
+</body>
+
+</html>
