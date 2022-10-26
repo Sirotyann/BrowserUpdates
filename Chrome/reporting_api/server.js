@@ -8,6 +8,7 @@ const privateKey = fs.readFileSync('../../localhost-key.pem')
 const certificate = fs.readFileSync('../../localhost.pem')
 const credentials = { key: privateKey, cert: certificate };
 const bodyParser = require('body-parser')
+const open = require('open')
 
 const app = express()
 // const domain = 'example.com';
