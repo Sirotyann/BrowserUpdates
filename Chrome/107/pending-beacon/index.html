@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="origin-trial"
+        content="Aw0/VBaSpR35KUWf94+YZ7ki6LS06lQzGx33SGIyNe5xdvipD71lVfO/ot9xIhZn9+ntQsN6GlPR2Ys98pnJCAoAAABteyJvcmlnaW4iOiJodHRwczovLzEyNy4wLjAuMTo5NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY2MTI5OTE5OSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <script>
+        function sendBeacon() {
+            const result = navigator.sendBeacon('/beacon', 'Sending Beacon by navigator');
+        }
+
+        function initPendingBeacon() {
+            const beacon = new PendingPostBeacon('/beacon', { backgroundTimeout: 1000 });
+            beacon.setData(`Page hide ${new Date()}`);
+        }
+
+        // function registerVisibilityChange() {
+        //     const hidden = "webkitHidden";
+        //     const visibilityChange = "webkitvisibilitychange";
+            
+        //     document.addEventListener(visibilityChange, () => {
+        //         console.log("hidden ", document['webkitHidden'])
+        //         // if (document['webkitHidden'] === false) {
+        //         //     initPendingBeacon();
+        //         // }
+        //     }, false);
+        // }
+        // registerVisibilityChange();
+        // initPendingBeacon();
+    </script>
+</head>
+
+<body>
+    <h1>Beacon API</h1>
+    <p>
+        <button onclick="sendBeacon()">sendBeacon</button>
+        <button onclick="initPendingBeacon()">Init Pending Beacon</button>
+    </p>
+</body>
+
+</html>
