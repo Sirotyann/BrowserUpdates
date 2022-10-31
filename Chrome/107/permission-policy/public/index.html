@@ -6,6 +6,10 @@
         function fullscreen() {
             document.getElementById('pineapple').requestFullscreen();
         }
+
+        function fullscreenDocument() {
+            document.documentElement.requestFullscreen();
+        }
     </script>
     <style>
         section {
@@ -23,7 +27,10 @@
 <body>
     <h1>Hello</h1>
     <section>
-        <div><button onclick="fullscreen()">FullScreen</button></div>
+        <div>
+            <button onclick="fullscreen()">FullScreen</button>
+            <button onclick="fullscreenDocument()">FullScreen Document</button>
+        </div>
         <img src="/PineApple.jpg" style="width: 100px" id="pineapple" />
     </section>
     <section>
