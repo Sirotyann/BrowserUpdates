@@ -13,7 +13,7 @@ app.get('/result', function (req, res) {
 });
 
 app.get('/submit', function (req, res) {
-    console.log('submit', req.get('referer'))
+    console.log('submit referer: ', req.get('referer'))
     res.sendFile(path.join(__dirname + '/result.html'));
 });
 

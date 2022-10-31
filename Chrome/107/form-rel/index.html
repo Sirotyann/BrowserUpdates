@@ -15,10 +15,12 @@
 
 <body>
     <h1>Hello</h1>
+    <a href="/result" target="_blank">no rel</a>
     <a href="/result" target="_blank" rel="opener">opener</a>
     <a href="/result" target="_blank" rel="noopener">noopener</a>
     <a href="/result" target="_blank" rel="noreferrer">noreferrer</a>
     <form action="/submit" rel="noreferrer">
+        <a href="/result" target="_blank">noopener</a>
         <input type="text" name="name" />
         <button type="submit">Submit</button>
     </form>
