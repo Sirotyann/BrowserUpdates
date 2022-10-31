@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="origin-trial"
+        content="Aw0/VBaSpR35KUWf94+YZ7ki6LS06lQzGx33SGIyNe5xdvipD71lVfO/ot9xIhZn9+ntQsN6GlPR2Ys98pnJCAoAAABteyJvcmlnaW4iOiJodHRwczovLzEyNy4wLjAuMTo5NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY2MTI5OTE5OSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <style>
+        #wrapper {
+            content-visibility: auto;
+        }
+
+        #page {
+            width: 100px;
+            height: 2080px;
+            background-color: brown;
+        }
+
+        #box {
+            padding: 15px;
+            margin-bottom: 30px;
+            background-color: aqua;
+        }
+
+        #board {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: wheat;
+            height: 40px;
+            line-height: 40px;
+            min-width: 100px;
+            text-align: right;
+            padding: 10px;
+        }
+    </style>
+    <script>
+        function pageOnload() {
+            const wrapper = document.querySelector('#wrapper');
+            let origin = null;
+            wrapper.addEventListener('contentvisibilityautostatechanged', (e) => {
+                console.log("ContentVisibilityAutoStateChanged", e.skipped)
+                if (origin === null) {
+                    origin = e.skipped;
+                }
+                if (e.skipped !== origin) {
+                    origin = e.skipped;
+                    document.querySelector('#board').innerHTML = "element " + (e.skipped ? 'hidden' : 'shown');
+                }
+            })
+        }
+    </script>
+</head>
+
+<body onload="pageOnload()">
+    <div id="page"></div>
+    <div id="wrapper">
+        <div id="box">A Box</div>
+    </div>
+    <div id="board"></div>
+</body>
+
+</html>
