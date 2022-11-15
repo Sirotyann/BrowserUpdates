@@ -10,7 +10,7 @@
         }
 
         function initPendingBeacon() {
-            const beacon = new PendingPostBeacon('/beacon', { backgroundTimeout: 10000 });
+            const beacon = new PendingPostBeacon('/beacon', { backgroundTimeout: 5000 });
             beacon.setData(`Page hide ${new Date()}`);
         }
 
