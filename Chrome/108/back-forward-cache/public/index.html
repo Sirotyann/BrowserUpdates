@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                console.log('This page (/) was restored from the bfcache.');
+            } else {
+                console.log('This page (/) was loaded normally.');
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <h1>Back/Forward cache - NotRestoredReason API</h1>
+    <a href="http://127.0.0.1:8080/x.html">TO X</a>
+    <div style="background-color: #ccc; padding: 15px;">
+        <iframe id="x" src="http://localhost:8080/x.html" width="900" height="600"></iframe>
+        <!-- <iframe id="y" src="http://127.0.0.1:8080/y.html" width="900" height="600"></iframe> -->
+    </div>
+
+</body>
+
+</html>

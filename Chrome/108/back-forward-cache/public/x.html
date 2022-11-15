@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function prt() {
+            console.log(performance.getEntriesByType('navigation')[0].notRestoredReasons);
+        }
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                console.log('This page (x) was restored from the bfcache.');
+            } else {
+                console.log('This page (x) was loaded normally.');
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <h1>X</h1>
+    <a href="/">TO Home</a>
+    <div>
+        <!-- <button onclick="prt()">Print</button> -->
+        <iframe src="http://127.0.0.1:8080/y.html" id="y" width="400" height="350"></iframe>
+        <!-- <iframe src="http://localhost:8080/z.html" id="z"></iframe> -->
+    </div>
+</body>
+
+</html>

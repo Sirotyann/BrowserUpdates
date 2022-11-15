@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function prt() {
+            console.log(performance.getEntriesByType('navigation')[0].notRestoredReasons);
+        }
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                console.log('This page (y) was restored from the bfcache.');
+            } else {
+                console.log('This page (y) was loaded normally.');
+            }
+        });
+    </script>
+</head>
+
+<body style="background-color: yellow;">
+    <h1>Y</h1>
+    <!-- <a href="/">TO Home</a> -->
+    <a href="/z.html">TO Z</a>
+    <a href="/error">TO Error</a>
+    <iframe src="http://localhost:8080/z.html" id="z"></iframe>
+    <!-- <button onclick="prt()">Print</button> -->
+</body>
+
+</html>

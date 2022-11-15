@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function prt() {
+            console.log(performance.getEntriesByType('navigation')[0].notRestoredReasons);
+        }
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                console.log('This page (y) was restored from the bfcache.');
+            } else {
+                console.log('This page (y) was loaded normally.');
+            }
+        });
+    </script>
+</head>
+
+<body style="background-color: rgb(182, 255, 182);">
+    <h1>Z</h1>
+    <div>
+        <div style="display: flex; column-gap: 20px;">
+            <a href="/y.html">To Y</a>
+            <a href="/x.html">To X</a>
+            <!-- <a href="/">TO Home</a> -->
+        </div>
+        <!-- <button onclick="prt()">Print</button> -->
+    </div>
+</body>
+
+</html>
