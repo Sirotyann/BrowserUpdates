@@ -9,5 +9,8 @@ Server can tell if Chrome is in dark theme or light theme by this header, and se
 # How to switch Chrome dark/light theme
 Windows settings -> Personalization -> Colors -> Choose your default app mode
 
+# How to turn on Chrome reduced motion
+Windows settings > Ease of Access > Display > Show animations in Windows.
+
 # Reference
 https://web.dev/user-preference-media-features-headers/
