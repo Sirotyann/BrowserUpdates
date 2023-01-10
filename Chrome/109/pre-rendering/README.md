@@ -4,3 +4,6 @@ A log would be printed on console.
 We can insert JSON instructions onto pages to inform the browser about which URLs to prerender (Speculation Rules API).
 https://developer.chrome.com/blog/prerender-pages/ 
 
+
+# Prefetch preload prerender difference
+https://3perf.com/blog/link-rels/
