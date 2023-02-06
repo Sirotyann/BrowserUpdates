@@ -12,6 +12,13 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/data', function (req, res) { 
+    console.log(`index ${index++} -----------------------`)
+    setTimeout(() => {
+        res.json({ totalCalls: index })
+    }, 5000)
+});
+
 app.get('/speculation', function (req, res) { 
     console.log(`speculation ${index++} ===========================`)
     // res.set('Content-Security-Policy', `prefetch-src http://127.0.0.1:9000/morning hello.html`);
@@ -32,5 +39,5 @@ app.get('/morning', function (req, res) {
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-    // open(`http://localhost:${port}`)
+    // open(`http://local.test.com:${port}`)
 })

@@ -2,28 +2,28 @@
 <html>
 
 <head>
-    <meta http-equiv="Supports-Loading-Mode" content="credentialed-prerender">
-    <!-- <link rel="prerender" href="http://127.0.0.1:9000/hello">
+  <meta http-equiv="Supports-Loading-Mode" content="credentialed-prerender">
+  <!-- <link rel="prerender" href="http://127.0.0.1:9000/hello">
     <link rel="prefetch" href="http://127.0.0.1:9000/morning"> -->
-    <script type="speculationrules">
+  <script type="speculationrules">
             {
               "prerender": [
                 {
                   "source": "list",
-                  "urls": ["/hello", "http://127.0.0.1:9000/morning"]
+                  "urls": ["http://local.test.com:9000/hello", "/morning"]
                 }
               ]
             }
-            </script>
+  </script>
 </head>
 
 <body>
-    <h1>
-        Page Speculation rules
-    </h1>
-    <div>
-        <!-- <a href="http://127.0.0.1:9000/hello">hello</a> -->
-    </div>
+  <h1>
+    Page Speculation rules
+  </h1>
+  <div>
+    <a href="http://127.0.0.1:9000/hello">hello</a>
+  </div>
 </body>
 
 </html>

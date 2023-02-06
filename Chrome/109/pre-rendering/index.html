@@ -6,8 +6,19 @@
                 margin: 10px;
             }
         </style>
-        <link rel="prerender" href="http://127.0.0.1:9000/hello">
-        <link rel="prefetch" href="http://127.0.0.1:9000/morning">
+        <link rel="prefetch" href="http://127.0.0.1:9000/hello">
+        <link rel="prerender" href="http://127.0.0.1:9000/morning">
+        <link rel="preload" href="/data" as="fetch" crossorigin="anonymous">
+
+        <script>
+            function getTotalCalls() {
+                console.log("getTotalCalls");
+                fetch('/data').then(resp => resp.json()).then(result => {
+                    console.log(result)
+                    document.querySelector("#totalCalls").innerHTML = result.totalCalls;
+                })
+            }
+        </script>
     </head>
     <body>
         <h1>
@@ -16,7 +27,11 @@
         <div>
             <a href="/hello">Hello</a>
             <a href="/speculation">Speculation</a>
-            Speculation
+        </div>
+        <div style="margin: 30px 10px 30px;">
+            <p><cod>/data</cod> is marked as preload, so the first time clicking the button below, will get response without sending request.</p>
+            <button onclick="getTotalCalls()">Get total calls</button>
+            <div><span id="totalCalls">-</span> call(s)</div>
         </div>
     </body>
 </html>
