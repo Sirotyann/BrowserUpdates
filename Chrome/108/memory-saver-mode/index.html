@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test memory save mod</title>
+    <style>
+        label {
+            display: block;
+            font-size: 1.2em;
+        }
+
+        .row {
+            padding: 5px 10px 5px;
+        }
+
+        #discard {
+            color: red;
+            font-size: 1.2em;
+            line-height: 30px;
+            display: none;
+        }
+
+        .panel {
+            margin: 30px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+    </style>
+    <script>
+        function pageOnload() {
+            document.onvisibilitychange = (evt) => {
+                console.log(`visibility changed to ${document.visibilityState}`, evt);
+            }
+
+            if (document.wasDiscarded) {
+                // The page was reloaded after a discard.
+                console.log("reloaded after a discard.");
+                document.querySelector('#discard').style.display = 'block'
+            }
+        }
+    </script>
+</head>
+
+<body onload="pageOnload()">
+
+
+    <h1>The page</h1>
+    <div class="panel">
+        <label>Enable Memory Saver Mode</label>
+        <div class="row">
+            1. Turn on efficiency mode flag at <b>chrome://flags/#high-efficiency-mode-available</b>
+        </div>
+        <div class="row">
+            2. Turn on Memory Saver Mode at <b>chrome://settings/performance</b>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="row">
+            Manually discard page at <b>chrome://discards/</b>
+        </div>
+        <div class="row">
+            A tab will be discarded while being inactive for over 2 hours.
+        </div>
+    </div>
+    <div id="discard">The page is reloaded after a discard</div>
+</body>
+
+</html>

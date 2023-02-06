@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome to my Website</title>
+</head>
+
+<body>
+    <iframe src="https://fedcm-rp-demo.glitch.me/" width="1024" height="600" identity-credentials-get="true"></iframe>
+    <!-- <button onclick="login()">Login with idp.example</button>
+
+    <script>
+        let nonce;
+        async function login() {
+            // Assume we have a method returning a random number. Store the value in a variable which can
+            // later be used to check against the value in the token returned.
+            nonce = Math.random(100);
+            // Prompt the user to select an account from the IDP to use for
+            // federated login within the RP. If resolved successfully, the Promise
+            // returns an IdentityCredential object from which the <code data-opaque bs-autolink-syntax='`token`'>token</code> can be
+            // extracted.
+            return await navigator.credentials.get({
+                identity: {
+                    providers: [{
+                        configURL: "https://localhost:8443/manifest",
+                        clientId: "123",
+                        nonce: nonce
+                    }]
+                }
+            });
+        }
+    </script> -->
+</body>
+
+</html>
