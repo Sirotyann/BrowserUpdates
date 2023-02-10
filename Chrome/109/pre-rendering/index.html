@@ -6,8 +6,10 @@
                 margin: 10px;
             }
         </style>
-        <link rel="prefetch" href="http://127.0.0.1:9000/hello">
-        <link rel="prerender" href="http://127.0.0.1:9000/morning">
+        <!-- <link rel="prefetch" href="http://127.0.0.1:9000/hello"> -->
+        <link rel="prefetch" href="http://local.test.com:9000/hello">
+        
+        <!-- <link rel="prerender" href="http://127.0.0.1:9000/morning"> -->
         <link rel="preload" href="/data" as="fetch" crossorigin="anonymous">
 
         <script>
@@ -17,6 +19,10 @@
                     console.log(result)
                     document.querySelector("#totalCalls").innerHTML = result.totalCalls;
                 })
+            }
+
+            function printPath(event) {
+                console.log("Path", event.composedPath())
             }
         </script>
     </head>
@@ -28,7 +34,7 @@
             <a href="/hello">Hello</a>
             <a href="/speculation">Speculation</a>
         </div>
-        <div style="margin: 30px 10px 30px;">
+        <div style="margin: 30px 10px 30px;" onclick="printPath(event)">
             <p><cod>/data</cod> is marked as preload, so the first time clicking the button below, will get response without sending request.</p>
             <button onclick="getTotalCalls()">Get total calls</button>
             <div><span id="totalCalls">-</span> call(s)</div>

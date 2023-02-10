@@ -1,10 +1,12 @@
 # What is FedCM
 - FedCM stands for "Federated Credential Management API". https://developer.chrome.com/en/docs/privacy-sandbox/fedcm/
+- FedCM is a Web Platform API that allows users to login to websites with their federated accounts in a privacy preserving manner.
 - FedCM is one of the Privacy Sandbox proposals.
-- Doc: https://fedidcg.github.io/FedCM/ 
+- Doc: https://fedidcg.github.io/FedCM/  https://developer.chrome.com/en/docs/privacy-sandbox/fedcm/ 
 - Demo: https://fedcm-rp-demo.glitch.me/
 
 # Whe we need FedCM
+
 ## Identity federation
 - Identity federation delegates authentication or authorization of an individual (user or entity) to a trusted external party (an identity provider or IdP). The identity provider then allows the individual to sign in to a website (a relying party or RP).
 

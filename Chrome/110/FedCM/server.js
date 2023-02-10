@@ -40,8 +40,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.text());
 
 app.get('/', function (req, res) {
-    res.header('Permissions-Policy', 'identity-credentials-get');
-    res.header('identity-credentials-get', 'true');
+    res.header('Permissions-Policy', 'identity-credentials-get=*');
+    // res.header('identity-credentials-get', 'true');
     res.sendFile(path.join(__dirname + '/demo.html'));
 });
 
@@ -76,3 +76,4 @@ httpServer.listen(8080);
 httpsServer.listen(8443);
 
 open(`https://${domain}:8443`)
+
