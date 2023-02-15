@@ -11,7 +11,7 @@ const open = require('open')
 
 const app = express()
 // const domain = 'example.com';
-const domain = 'local.rp.com';
+const domain = '127.0.0.1';
 
 app.use(express.static('public', {
     setHeaders: function (res, path, stat) {
@@ -26,30 +26,8 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.text());
 
-app.get('/', function (req, res) {
-    // res.header('Permissions-Policy', 'identity-credentials-get=*');
-    // res.header('identity-credentials-get', 'true');
+app.get('/', function (req, res) {s
     res.sendFile(path.join(__dirname + '/index.html'));
-});
-
-app.get('/manifest', function (req, res) {
-    res.json({
-        "accounts_endpoint": "/accounts",
-        "client_metadata_endpoint": "/metadata",
-        "id_assertion_endpoint": "/assertion",
-        "id_token_endpoint":"/auth/idtokens",
-        "revocation_endpoint":"/auth/revoke",
-        "branding": {
-            "background_color": "green",
-            "color": "0xFFEEAA",
-            "icons": [
-                {
-                    "url": "https://127.0.0.1:9000/icon.ico",
-                    "size": 25
-                }
-            ]
-        }
-    })
 });
 
 app.use(express.static('public'));

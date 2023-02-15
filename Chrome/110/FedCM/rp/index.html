@@ -6,7 +6,9 @@
 </head>
 
 <body>
-    <button onclick="login()">Login with idp.example</button>
+    <a href="https://localhost:8443">Login with idp</a>
+
+    <div id="greeting" style="padding-top: 20px"></div>
 
     <script>
         let nonce;
@@ -33,12 +35,15 @@
             console.log("------ start login ------");
             getCredentials().then((resp) => {
                 console.log("------- get credentials ------", resp);
+                document.querySelector('#greeting').innerHTML = `User token ${resp.token}`;
             }).catch(e => {
                 console.log("###### get credentials error ######", e);
             }).finally(() => {
                 console.log("------ login ends ------")
             });
         }
+
+        login();
     </script>
 </body>
 

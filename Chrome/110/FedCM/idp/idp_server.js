@@ -7,7 +7,6 @@ const privateKey = fs.readFileSync('../../../../localhost-key.pem')
 const certificate = fs.readFileSync('../../../../localhost.pem')
 const credentials = { key: privateKey, cert: certificate };
 const bodyParser = require('body-parser')
-const open = require('open')
 
 const app = express()
 // const domain = 'example.com';
@@ -15,18 +14,27 @@ const domain = 'localhost';
 
 app.use(express.static('public'));
 
-// app.use(function (req, res, next) {
-//     res.set('Origin-Trial', 'Aw0/VBaSpR35KUWf94+YZ7ki6LS06lQzGx33SGIyNe5xdvipD71lVfO/ot9xIhZn9+ntQsN6GlPR2Ys98pnJCAoAAABteyJvcmlnaW4iOiJodHRwczovLzEyNy4wLjAuMTo5NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY2MTI5OTE5OSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==');
-//     next();
-// });
-
 app.use(bodyParser.text());
 
-// app.get('/', function (req, res) {
-//     res.header('Permissions-Policy', 'identity-credentials-get=*');
-//     // res.header('identity-credentials-get', 'true');
-//     res.sendFile(path.join(__dirname + '/demo.html'));
-// });
+let users = new Set()
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + '/index.html'));
+});
+
+app.post('/login', function (req, res) {
+    const name = JSON.parse(req.body).username
+    console.log(`--- login with name ${name} ---`)
+    users.add(name)
+    res.json({success: true})
+});
+
+app.post('/logout', function (req, res) {
+    const name = JSON.parse(req.body).username
+    console.log(`--- logout with name ${name} ---`)
+    users.delete(name)
+    res.json({success: true})
+});
 
 app.get('/.well-known/web-identity', function (req, res) {
     console.log("--- get well-known ---")
@@ -39,14 +47,15 @@ app.get('/.well-known/web-identity', function (req, res) {
 
 app.get('/config', function (req, res) {
     console.log("--- get config ---")
+    console.log("header", req.headers)
     res.json({
         "accounts_endpoint": "/accounts",
         "client_metadata_endpoint": "/metadata",
         "id_assertion_endpoint": "/assertion",
-        "branding": {
-            "background_color": "0x6200ee",
-            "color": "0xffffff",
-            "icons": [
+        branding: {
+            background_color: "0x6200ee",
+            color: "0xffffff",
+            icons: [
                 {
                     "url": `https://${domain}:8443/icon.ico`,
                     "size": 25
@@ -58,15 +67,15 @@ app.get('/config', function (req, res) {
 
 app.get('/accounts', function (req, res) {
     console.log("--- get accounts ---")
+    console.log("headers", req.headers)
+    console.log("users", users)
     res.json({
-        accounts: [
-            {
-                id: "id_00001",
-                name: "lc",
-                email: "Cheng.Li@Mindgeek.com",
-                approved_clients: ["123"]
-            }
-        ]
+        accounts: Array.from(users).map(name => ({
+            id: name,
+            name,
+            email: `${name}@Mindgeek.com`,
+            approved_clients: ["123"]
+        }))
     })
 });
 
@@ -80,8 +89,11 @@ app.get('/metadata', function (req, res) {
 
 app.post('/assertion', function (req, res) {
     console.log("--- get assertion ---")
+    console.log("headers", req.headers)
+    const username = req.headers.cookie.split("=")[1];
+    
     res.json({
-        token: "this_is_the_token"
+        token: `token_for_user_${username}`
     })
 });
 
@@ -92,5 +104,3 @@ var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(8080);
 httpsServer.listen(8443);
-
-open(`https://${domain}:8443`)
