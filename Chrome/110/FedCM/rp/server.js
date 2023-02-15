@@ -1,30 +1,17 @@
-// const express = require('express')
-// const path = require('path');
-// const app = express()
-
-// app.get('/demo', function (req, res) {
-//     res.sendFile(path.join(__dirname + '/demo.html'));
-// });
-
-// app.use(express.static('public'));
-
-// app.listen(9000)
-
-
 const express = require('express')
 const path = require('path')
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const privateKey = fs.readFileSync('../../../localhost-key.pem')
-const certificate = fs.readFileSync('../../../localhost.pem')
+const privateKey = fs.readFileSync('../../../../localhost-key.pem')
+const certificate = fs.readFileSync('../../../../localhost.pem')
 const credentials = { key: privateKey, cert: certificate };
 const bodyParser = require('body-parser')
 const open = require('open')
 
 const app = express()
 // const domain = 'example.com';
-const domain = 'localhost';
+const domain = 'local.rp.com';
 
 app.use(express.static('public', {
     setHeaders: function (res, path, stat) {
@@ -40,12 +27,10 @@ app.use(function (req, res, next) {
 app.use(bodyParser.text());
 
 app.get('/', function (req, res) {
-    res.header('Permissions-Policy', 'identity-credentials-get=*');
+    // res.header('Permissions-Policy', 'identity-credentials-get=*');
     // res.header('identity-credentials-get', 'true');
-    res.sendFile(path.join(__dirname + '/demo.html'));
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
-
-
 
 app.get('/manifest', function (req, res) {
     res.json({
@@ -72,8 +57,7 @@ app.use(express.static('public'));
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(8080);
-httpsServer.listen(8443);
+httpServer.listen(8090);
+httpsServer.listen(9443);
 
-open(`https://${domain}:8443`)
-
+open(`https://${domain}:9443`)

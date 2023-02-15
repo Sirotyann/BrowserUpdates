@@ -21,5 +21,6 @@
 # What is Federated Credential
 - Federated identity allows authorized users to access multiple applications and domains using a single set of credentials.
 
-# Adds cross-origin iframe support for the FedCM API via a permissions policy.
--
+# Concepts
+- RP: Relying Party (website that requests user information for federated sign in) 
+- IDP : Identity Provider (website that provides user information for federated sign in)

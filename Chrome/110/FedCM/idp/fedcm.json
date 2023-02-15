@@ -1,0 +1,17 @@
+{
+    "accounts_endpoint": "/auth/accounts",
+    "client_metadata_endpoint": "/auth/metadata",
+    "id_assertion_endpoint": "/auth/idtokens",
+    "id_token_endpoint": "/auth/idtokens",
+    "revocation_endpoint": "/auth/revoke",
+    "branding": {
+        "background_color": "0x6200ee",
+        "color": "0xffffff",
+        "icons": [
+            {
+                "url": "https://cdn.glitch.global/3e0c8298-f17f-4c5b-89ea-f93a6f29cb1e/icon.png?v=1654655899873",
+                "size": 256
+            }
+        ]
+    }
+}
