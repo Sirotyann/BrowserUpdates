@@ -38,6 +38,7 @@ app.post('/logout', function (req, res) {
 
 app.get('/.well-known/web-identity', function (req, res) {
     console.log("--- get well-known ---")
+    res.header('Sec-Fetch-Dest', 'webidentity');
     res.json({
         provider_urls: [
             `https://${domain}:8443/config`
@@ -48,6 +49,7 @@ app.get('/.well-known/web-identity', function (req, res) {
 app.get('/config', function (req, res) {
     console.log("--- get config ---")
     console.log("header", req.headers)
+    res.header('Sec-Fetch-Dest', 'webidentity');
     res.json({
         "accounts_endpoint": "/accounts",
         "client_metadata_endpoint": "/metadata",
@@ -69,6 +71,7 @@ app.get('/accounts', function (req, res) {
     console.log("--- get accounts ---")
     console.log("headers", req.headers)
     console.log("users", users)
+    res.header('Sec-Fetch-Dest', 'webidentity');
     res.json({
         accounts: Array.from(users).map(name => ({
             id: name,
@@ -81,6 +84,7 @@ app.get('/accounts', function (req, res) {
 
 app.get('/metadata', function (req, res) {
     console.log("--- get metadata ---")
+    res.header('Sec-Fetch-Dest', 'webidentity');
     res.json({
         privacy_policy_url: `https://${domain}:8443/privacy_policy.html`,
         terms_of_service_url: `https://${domain}:8443/terms_of_service.html`
@@ -91,7 +95,7 @@ app.post('/assertion', function (req, res) {
     console.log("--- get assertion ---")
     console.log("headers", req.headers)
     const username = req.headers.cookie.split("=")[1];
-    
+    res.header('Sec-Fetch-Dest', 'webidentity');
     res.json({
         token: `token_for_user_${username}`
     })

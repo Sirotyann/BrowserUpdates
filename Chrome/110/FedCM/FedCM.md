@@ -5,7 +5,7 @@
 - Doc: https://fedidcg.github.io/FedCM/  https://developer.chrome.com/en/docs/privacy-sandbox/fedcm/ 
 - Demo: https://fedcm-rp-demo.glitch.me/
 
-# Whe we need FedCM
+# Why we need FedCM
 
 ## Identity federation
 - Identity federation delegates authentication or authorization of an individual (user or entity) to a trusted external party (an identity provider or IdP). The identity provider then allows the individual to sign in to a website (a relying party or RP).
@@ -24,3 +24,7 @@
 # Concepts
 - RP: Relying Party (website that requests user information for federated sign in) 
 - IDP : Identity Provider (website that provides user information for federated sign in)
+
+# How to test
+- Block third-party cookies: chrome://settings/cookies 
+- Enable FedCM without thrid-party cookies: chrome://flags/#fedcm-without-third-party-cookies
