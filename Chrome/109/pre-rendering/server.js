@@ -9,6 +9,7 @@ let index = 0;
 
 app.get('/', function (req, res) { 
     console.log(`index ${index++} -----------------------`)
+    res.set('Content-Security-Policy', 'prefetch-src http://192.168.0.100:9000/hello');
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
