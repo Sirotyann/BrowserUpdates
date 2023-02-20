@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #pictureInPicture {
+            width: 400px;
+            height: 400px;
+            background-color: #CCC;
+            color: #333;
+            font-size: 16px;
+            margin: 30px;
+            padding: 30px;
+            border: 1px solid #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pictureInPictureContainer">
+        <div id="pictureInPicture">
+            <p>
+                some text
+            </p>
+        </div>
+    </div>
+    <button id="pipButton">Open Picture-in-Picture window</button>
+    <script>
+        pipButton.addEventListener('click', async () => {
+            const win = document.querySelector("#pictureInPicture");
+            const pipWindow = await documentPictureInPicture.requestWindow({
+                copyStyleSheets: true
+            });
+
+            // Move content to the Picture-in-Picture window. 
+            pipWindow.document.body.append(win);
+
+            // Move the content back when the Picture-in-Picture window closes.
+            pipWindow.addEventListener("unload", (event) => {
+                const container = document.querySelector("#pictureInPictureContainer");
+                const content = event.target.querySelector("#pictureInPicture");
+                container.append(content);
+            });
+        });
+    </script>
+</body>
+
+</html>
