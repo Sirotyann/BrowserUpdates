@@ -26,7 +26,7 @@
     </div>
     <button id="pipButton">Open Picture-in-Picture window</button>
     <script>
-        pipButton.addEventListener('click', async () => {
+        document.getElementById('pipButton').addEventListener('click', async () => {
             const win = document.querySelector("#pictureInPicture");
             const pipWindow = await documentPictureInPicture.requestWindow({
                 copyStyleSheets: true
