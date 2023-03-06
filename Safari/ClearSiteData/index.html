@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Clear Site Data</title>
+
+</head>
+
+<body>
+    <a href="/clear">Clear Cookie</a>
+    <div>
+        <label>Cookies:</label>
+        <div id="cookies">
+
+        </div>
+        <div>
+            <button onclick="addRandomCookie()">Add Cookies</button>
+        </div>
+    </div>
+    <script>
+        function randomString(len, charSet) {
+            charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var randomString = '';
+            for (var i = 0; i < len; i++) {
+                var randomPoz = Math.floor(Math.random() * charSet.length);
+                randomString += charSet.substring(randomPoz, randomPoz + 1);
+            }
+            return randomString;
+        }
+
+        function addRandomCookie() {
+            const val = randomString(5);
+            document.cookie = `CookieToClear=${val}`;
+            prtCookie();
+        }
+
+        function prtCookie() {
+            document.querySelector("#cookies").innerHTML = document.cookie;
+        }
+
+        prtCookie();
+    </script>
+</body>
+
+</html>

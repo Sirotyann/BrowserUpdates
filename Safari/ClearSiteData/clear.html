@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>Clear Site Data Test</head>
+
+<body>
+    <a href="/">home</a>
+    <div>
+        
+        <label>Cookies:</label>
+        <div id="cookies">
+
+        </div>
+    </div>
+    <script>
+        function prtCookie() {
+            document.querySelector("#cookies").innerHTML = document.cookie;
+        }
+
+        prtCookie();
+    </script>
+</body>
+
+</html>
