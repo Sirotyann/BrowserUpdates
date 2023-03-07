@@ -26,7 +26,7 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.text());
 
-app.get('/', function (req, res) {s
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
