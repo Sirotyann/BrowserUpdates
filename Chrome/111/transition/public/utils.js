@@ -15,6 +15,8 @@ function init() {
                         const pageContent = await getPageContent(toUrl);
                         document.body.innerHTML = pageContent;
                     });
+                } else {
+                    location.href = event.destination.url;
                 }
             }
         });
