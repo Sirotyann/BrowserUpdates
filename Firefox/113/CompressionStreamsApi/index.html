@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- <script type="text/javascript" src="/fileSave.js"></script> -->
+    <script type="text/javascript">
+        function download(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        async function downloadZip() {
+            console.log("downloadZip");
+
+            try {
+                const readableStream = await fetch('/txt').then((response) => response.body);
+                const compressedReadableStream = readableStream.pipeThrough(
+                    new CompressionStream('gzip')
+                );
+                const response = new Response(compressedReadableStream);
+                response.blob().then(blob => {
+                    download(blob, 'hello.gz')
+                });
+            } catch (error) {
+                console.error('Error compressing data:', error);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <button onclick="downloadZip()">Download zip</button>
+    </div>
+</body>
+
+</html>

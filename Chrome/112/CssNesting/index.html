@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .nesting {
+            background: blue;
+            padding: 20px;
+
+            >.is {
+                background: yellow;
+                padding: 20px;
+
+                >.awesome {
+                    padding: 20px;
+                    background: pink;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nesting">
+        <div class="is">
+            <div class="awesome">
+                Hi
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

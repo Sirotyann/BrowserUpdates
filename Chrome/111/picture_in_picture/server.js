@@ -9,6 +9,10 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+app.get('/shadow', function (req, res) { 
+    res.sendFile(path.join(__dirname + '/shadow.html'));
+});
+
 app.use(express.static('public'));
 
 app.listen(port, () => {

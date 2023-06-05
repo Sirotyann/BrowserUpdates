@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #pictureInPicture {
+            width: 400px;
+            height: 400px;
+            background-color: #CCC;
+            color: #333;
+            font-size: 16px;
+            margin: 30px;
+            padding: 30px;
+            border: 1px solid #666;
+        }
+
+        #pipShadowButton {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="pictureInPicture">
+        <p>
+            some text
+        </p>
+    </div>
+    <div style="padding-left: 30px;">
+        <button id="pipButton">Open Picture-in-Picture window</button>
+        <div id="pipShadowButton"></div>
+    </div>
+    <script>
+        function getElement() {
+            const element = document.createElement('div');
+            element.innerText = "I am in shadow";
+            return element;
+        }
+
+        function getShadowButton() {
+            const button = document.createElement('button');
+            button.innerText = "Open Picture-in-Picture window from shadow dom";
+            button.addEventListener('click', () => {
+
+            })
+            return button;
+        }
+
+        (function buildShadow() {
+            const pip = document.querySelector('#pictureInPicture');
+            pip.attachShadow({ mode: 'open' });
+            pip.shadowRoot.append(getElement());
+
+            const pipButton = document.querySelector('#pipShadowButton');
+            pipButton.attachShadow({ mode: 'open' });
+            pipButton.addEventListener('click', () => {
+                console.log("request pic-in-pic from shadow dom");
+                popupPip();
+            });
+            pipButton.shadowRoot.append(getShadowButton());
+        })();
+
+        async function popupPip() {
+            const win = document.querySelector("#pictureInPicture").shadowRoot;
+            const pipWindow = await documentPictureInPicture.requestWindow({
+                copyStyleSheets: true
+            });
+
+            // Move content to the Picture-in-Picture window. 
+            pipWindow.document.body.append(win);
+
+            // Move the content back when the Picture-in-Picture window closes.
+            pipWindow.addEventListener("unload", (event) => {
+                const pip = document.querySelector('#pictureInPicture');
+                pip.shadowRoot.append(getElement());
+            });
+        }
+
+        document.getElementById('pipButton').addEventListener('click', () => {
+            console.log("request pic-in-pic");
+            popupPip();
+        });
+    </script>
+</body>
+
+</html>

@@ -3,12 +3,22 @@
 
 <head>
     <script>
+        function prt() {
+            const navEntries = performance.getEntriesByType("navigation");
+            for (let i = 0; i < navEntries.length; i++) {
+                let navEntry = navEntries[i];
+                console.log(`${location.href} Navigation entry ${i}`, { reasons: navEntry.notRestoredReasons });
+            }
+        }
+
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
-                console.log('This page (/) was restored from the bfcache.');
+                console.log('%c This page (/) was restored from the bfcache.', 'color: #7CFC00');
             } else {
-                console.log('This page (/) was loaded normally.');
+                console.log('This page (/) was loaded normally.', performance.getEntriesByType("navigation")[0].notRestoredReasons);
             }
+
+            // prt();
         });
     </script>
 </head>
@@ -16,10 +26,11 @@
 <body>
 
     <h1>Back/Forward cache - NotRestoredReason API</h1>
+    <button onclick="prt()">Print</button>
     <a href="http://127.0.0.1:8080/x.html">TO X</a>
+    <a href="http://127.0.0.1:8080/unload.html">TO Unload Event</a>
     <div style="background-color: #ccc; padding: 15px;">
         <iframe id="x" src="http://localhost:8080/x.html" width="900" height="600"></iframe>
-        <!-- <iframe id="y" src="http://127.0.0.1:8080/y.html" width="900" height="600"></iframe> -->
     </div>
 
 </body>

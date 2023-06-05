@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <style>
+        body {
+            background-color: rgba(0,0,255,0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Embeded at port 9443</h1>
+        
+        <div>
+            <button onclick="setCookie()">Set Cookie</button>
+            <button onclick="prtCookie()">Send cookie to server</button>
+        </div>
+
+        <div id="board">
+            
+        </div>
+    </div>
+    <script type="text/javascript">
+        function showCookie() {
+            document.getElementById("board").innerText = document.cookie;
+        }
+
+        function setCookie() {
+            // document.cookie = `strict_main=StrictMain`;
+            
+            document.cookie = 'chips=Partitioned; SameSite=None; Secure; Path=/; Partitioned;';
+            document.cookie = 'carry=CarryOver; SameSite=None; Secure; Path=/;';
+            console.log(document.cookie);
+            showCookie();
+        }
+
+        function prtCookie() {
+            fetch('/prtCookie').then(resp => resp.json()).then(data => console.log(data))
+        }
+
+        showCookie();
+    </script>
+</body>
+
+</html>

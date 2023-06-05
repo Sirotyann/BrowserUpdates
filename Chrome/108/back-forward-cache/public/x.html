@@ -6,13 +6,23 @@
         function prt() {
             console.log(performance.getEntriesByType('navigation')[0].notRestoredReasons);
         }
+        
+        function returnNRR() {
+            const navEntries = performance.getEntriesByType("navigation");
+            for (let i = 0; i < navEntries.length; i++) {
+                let navEntry = navEntries[i];
+                console.log(`${location.href} Navigation entry ${i}`, { reasons: navEntry.notRestoredReasons });
+            }
+        }
 
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
-                console.log('This page (x) was restored from the bfcache.');
+                console.log('%c This page (x) was restored from the bfcache.', 'color: #7CFC00');
             } else {
-                console.log('This page (x) was loaded normally.');
+                console.log('This page (x) was loaded normally.', performance.getEntriesByType("navigation")[0].notRestoredReasons);
             }
+
+            // returnNRR();
         });
     </script>
 </head>
@@ -20,10 +30,12 @@
 <body>
     <h1>X</h1>
     <a href="/">TO Home</a>
+    <a href="/y.html">TO Y</a>
+    <a href="/unload.html">TO Unload Event</a>
     <div>
         <!-- <button onclick="prt()">Print</button> -->
-        <iframe src="http://127.0.0.1:8080/y.html" id="y" width="400" height="350"></iframe>
-        <!-- <iframe src="http://localhost:8080/z.html" id="z"></iframe> -->
+        <!-- <iframe src="http://127.0.0.1:8080/y.html" id="y" width="400" height="350"></iframe> -->
+        <iframe src="http://localhost:8080/z.html" id="z"></iframe>
     </div>
 </body>
 

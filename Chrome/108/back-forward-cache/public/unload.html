@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Page with an unload event</title>
+    <style>
+        html, body {
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Unload event</h1>
+    <a href="/">TO Home</a>
+
+    <a href="/x.html">TO X</a>
+
+    <button onclick="prt()">Print</button>
+    
+    <script type="text/javascript">
+
+        window.addEventListener("unload", (event) => {
+            console.log("unload")
+            fetch('/unloadPage')
+        });
+
+        function prt() {
+            const navEntries = performance.getEntriesByType("navigation");
+            for (let i = 0; i < navEntries.length; i++) {
+                let navEntry = navEntries[i];
+                console.log(`${location.href} Navigation entry ${i}`, { reasons: navEntry.notRestoredReasons });
+            }
+        }
+    </script>
+</body>
+
+</html>

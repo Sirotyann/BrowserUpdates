@@ -28,3 +28,8 @@
 # How to test
 - Block third-party cookies: chrome://settings/cookies 
 - Enable FedCM without thrid-party cookies: chrome://flags/#fedcm-without-third-party-cookies
+
+# What next
+New features will be added to FedCM, including cross-origin iframe support.
+The roadmap can be found on https://developer.chrome.com/en/docs/privacy-sandbox/fedcm/#roadmap.
+Now RP can't keep login status, but there are several proposals related: https://github.com/privacycg/is-logged-in.

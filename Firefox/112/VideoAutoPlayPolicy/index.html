@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        ul {
+            list-style: none;
+        }
+
+        li {
+            height: 30px;
+            line-height: 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        li pre {
+            background-color: #EAEAEA;
+            padding: 0 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay controls muted width="400" src="/movie.mp4"></video>
+    <div>
+        <ul>
+            <li>
+                <pre>navigator.getAutoplayPolicy("mediaelement")</pre>
+                <div>:</div>
+                <div id="result_1"></div>
+            </li>
+            <li>
+                <pre>navigator.getAutoplayPolicy(document.querySelector('video'))</pre>
+                <div>:</div>
+                <div id="result_2"></div>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        document.querySelector('#result_1').innerHTML = navigator.getAutoplayPolicy("mediaelement");
+        document.querySelector('#result_2').innerHTML = navigator.getAutoplayPolicy(document.querySelector('video'));
+    </script>
+</body>
+
+</html>

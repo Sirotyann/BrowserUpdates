@@ -6,11 +6,20 @@
         function prt() {
             console.log(performance.getEntriesByType('navigation')[0].notRestoredReasons);
         }
+
+        function returnNRR() {
+            const navEntries = performance.getEntriesByType("navigation");
+            for (let i = 0; i < navEntries.length; i++) {
+                let navEntry = navEntries[i];
+                console.log(`${location.href} Navigation entry ${i}`, { reasons: navEntry.notRestoredReasons });
+            }
+        }
+
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
-                console.log('This page (y) was restored from the bfcache.');
+                console.log('%c This page (y) was restored from the bfcache.', 'color: #7CFC00');
             } else {
-                console.log('This page (y) was loaded normally.');
+                console.log('This page (y) was loaded normally.', performance.getEntriesByType("navigation")[0].notRestoredReasons);
             }
         });
     </script>

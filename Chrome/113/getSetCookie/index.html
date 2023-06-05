@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>Index</h1>
+    <button onclick="getSingleCookie()">Get Single Cookie</button>
+    <button onclick="getMultipleCookie()">Get Multiple Cookie</button>
+    <button onclick="testSetCookie()">Test Set Cookie</button>
+    <div id="board" style="margin-top: 20px;">
+        <label>Cookie:</label>
+        <p>
+
+        </p>
+    </div>
+
+    <script type="text/javascript">
+        function getSingleCookie() {
+            fetch('/single', {
+                credentials: 'same-origin'
+            }).then(resp => {
+                // console.log('resp.headers', resp.headers.get('Set-Cookie'))
+                console.log('resp.headers.getSetCookie', resp.headers.getSetCookie())
+                showCookie();
+                // resp.headers.forEach(function (value, name) {
+                //     console.log(`[cookie attr] ${name}: ${value}`);
+                // });
+                return resp.json();
+            }).then(data => {
+                // console.log(data);
+            }).catch(e => {
+                console.error(e)
+            })
+        }
+
+        function getMultipleCookie() {
+            fetch('/multiple', {
+                credentials: 'same-origin'
+            }).then(resp => {
+                // console.log('resp.headers', resp.headers.get('Set-Cookie'))
+                console.log('resp.headers.getSetCookie', resp.headers.getSetCookie())
+                // resp.headers.forEach(function (value, name) {
+                //     console.log(`[cookie attr] ${name}: ${value}`);
+                // });
+                showCookie();
+                return resp.json();
+            }).then(data => {
+                // console.log(data);
+            }).catch(e => {
+                console.error(e)
+            })
+        }
+
+        function testSetCookie() {
+            const headers = new Headers();
+            headers.append('content-type', 'text/plain');
+            headers.append('set-cookie', 'test3=v; Max-Age=0');
+            headers.append('set-cookie', 'test4=v; Max-Age=0');
+            console.log('headers.getSetCookie', headers.getSetCookie());
+            console.log(headers.get('set-cookie'));
+        }
+
+        function showCookie() {
+            document.querySelector('#board > p').innerText = document.cookie;
+        }
+
+        showCookie();
+    </script>
+</body>
+
+</html>

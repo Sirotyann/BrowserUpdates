@@ -23,6 +23,11 @@ app.use(express.static('public'));
 //     // open(`http://localhost:${port}`)
 // })
 
+app.get('/unloadPage', function (req, res) {
+    console.log('page unload')
+    res.send({success: true})
+});
+
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);

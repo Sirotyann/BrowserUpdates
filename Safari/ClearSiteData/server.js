@@ -11,15 +11,9 @@ const bodyParser = require('body-parser')
 const open = require('open')
 
 const app = express()
-// const domain = 'example.com';
 const domain = 'localhost';
 
 app.use(express.static('public'));
-
-// app.use(function (req, res, next) {
-//     res.set('Origin-Trial', 'Aw0/VBaSpR35KUWf94+YZ7ki6LS06lQzGx33SGIyNe5xdvipD71lVfO/ot9xIhZn9+ntQsN6GlPR2Ys98pnJCAoAAABteyJvcmlnaW4iOiJodHRwczovLzEyNy4wLjAuMTo5NDQzIiwiZmVhdHVyZSI6IlByaXZhY3lTYW5kYm94QWRzQVBJcyIsImV4cGlyeSI6MTY2MTI5OTE5OSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==');
-//     next();
-// });
 
 app.use(bodyParser.text());
 
@@ -29,7 +23,7 @@ app.get('/', function (req, res) {
 
 app.get('/clear', function (req, res) {
     // console.log('beacon: ', req.body)
-    res.set('Clear-Site-Data', '"cookies"');
+    res.set('Clear-Site-Data', '"cookies", "storage"');
     res.sendFile(path.join(__dirname + '/clear.html'));
 });
 

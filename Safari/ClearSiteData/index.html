@@ -3,18 +3,33 @@
 
 <head>
     <title>Clear Site Data</title>
-
+    <style>
+        .row {
+            line-height: 25px;
+            margin: 10px 0 10px;
+        }
+    </style>
 </head>
 
 <body>
     <a href="/clear">Clear Cookie</a>
     <div>
-        <label>Cookies:</label>
-        <div id="cookies">
-
+        <div class="row">
+            <label>Cookies:</label>
+            <div id="cookies"></div>
+        </div>
+        <div class="row">
+            <label>Local Storage:</label>
+            <div id="local-storage"></div>
+        </div>
+        <div class="row">
+            <label>Session Storage:</label>
+            <div id="session-storage"></div>
         </div>
         <div>
             <button onclick="addRandomCookie()">Add Cookies</button>
+            <button onclick="addRandomLocalStorage()">Add Local Storage</button>
+            <button onclick="addRandomSessionStorage()">Add Session Storage</button>
         </div>
     </div>
     <script>
@@ -38,7 +53,30 @@
             document.querySelector("#cookies").innerHTML = document.cookie;
         }
 
+        // -------
+        function addRandomLocalStorage() {
+            const val = randomString(15);
+            localStorage.setItem("storage", val);
+            prtLocalStorage();
+        }
+
+        function prtLocalStorage() {
+            document.querySelector("#local-storage").innerHTML = `LocalStorage: ${localStorage.getItem("storage")}`;
+        }
+
+        // -------
+        function addRandomSessionStorage() {
+            const val = randomString(15);
+            sessionStorage.setItem("storage", val);
+            prtSessionStorage();
+        }
+
+        function prtSessionStorage() {
+            document.querySelector("#session-storage").innerHTML = `SessionStorage: ${sessionStorage.getItem("storage")}`;
+        }
+
         prtCookie();
+        prtLocalStorage();
     </script>
 </body>
 
