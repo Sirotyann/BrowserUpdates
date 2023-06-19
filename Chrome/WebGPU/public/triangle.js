@@ -35,9 +35,7 @@ fn fragment_main(fragData: VertexOut) -> @location(0) vec4f
 }
 `;
 
-// Main function
-
-async function init() {
+async function triangleDemo() {
     // 1: request adapter and device
     if (!navigator.gpu) {
         throw Error('WebGPU not supported.');
@@ -65,13 +63,13 @@ async function init() {
         alphaMode: 'premultiplied'
     });
 
-    // 4: Create vertex buffer to contain vertex data
+    // 4: Create buffer
     const vertexBuffer = device.createBuffer({
         size: vertices.byteLength, // make it big enough to store vertices in
         usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
     });
 
-    // Copy the vertex data over to the GPUBuffer using the writeBuffer() utility function
+    // Copy the data over to the GPUBuffer using the writeBuffer() utility function
     device.queue.writeBuffer(vertexBuffer, 0, vertices, 0, vertices.length);
 
     // 5: Create a GPUVertexBufferLayout and GPURenderPipelineDescriptor to provide a definition of our render pipline
@@ -142,4 +140,3 @@ async function init() {
     device.queue.submit([commandEncoder.finish()]);
 }
 
-init();

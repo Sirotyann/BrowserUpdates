@@ -22,8 +22,16 @@
     <h1>WebGPU demo</h1>
     <p id="board"></p>
 
-    <canvas id="gpuCanvas" width="512" height="512"></canvas>
+    
 
+    <div>
+        <button onclick="computeDemo()">Compute Demo</button>
+        <button onclick="triangleDemo()">Triangle Demo</button>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <canvas id="gpuCanvas" width="512" height="512"></canvas>
+    </div>
     <!-- <script type="text/javascript" src="/hello.js"></script> -->
     <!-- <script type="text/javascript" src="/game.js"></script> -->
     <script type="text/javascript" src="/triangle.js"></script>

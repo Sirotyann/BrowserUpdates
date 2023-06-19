@@ -27,7 +27,7 @@ fn main(
 
 // Main function
 
-async function init() {
+async function computeDemo() {
     // 1: request adapter and device
     if (!navigator.gpu) {
         throw Error('WebGPU not supported.');
@@ -130,5 +130,3 @@ async function init() {
     
     console.log(new Float32Array(data));
 }
-
-init();
