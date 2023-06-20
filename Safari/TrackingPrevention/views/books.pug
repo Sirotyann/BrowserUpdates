@@ -1,7 +1,12 @@
 html 
     head
-        title= title 
+        title= "Book List" 
+        style= style
     body   
-        h1= "books2"
-        each item in books
-            li= item
+        h1= "books"
+        ul
+            each item in books
+                li
+                    a(href=`/book?id=${item.id}&ref=books`)
+                        span(class="name")= item.name
+                    span(class="author")= item.author
