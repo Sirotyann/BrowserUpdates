@@ -28,6 +28,11 @@ app.get('/book', (req, res) => {
     res.render('book', { book, style: bookStyle })
 })
 
+app.get('/.well-known', (req, res) => {
+    console.log('## WELL-KNOWN ##', {
+        query: req.query
+    })
+})
 
 app.use(express.static('public'))
 

@@ -7,6 +7,6 @@ html
         ul
             each item in books
                 li
-                    a(href=`/book?id=${item.id}&ref=books`)
+                    a(href=`/book?id=${item.id}&ref=books` attributionsourceid=`source-${item.id}` attributeon="http://example.com")
                         span(class="name")= item.name
                     span(class="author")= item.author
