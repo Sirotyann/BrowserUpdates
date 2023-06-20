@@ -4,7 +4,7 @@ const app = express()
 const port = 3000
 const path = require('path')
 const fs = require('fs')
-
+const crypto = require('crypto');
 
 const bookList = require('./books.json')
 const bookMap = new Map(bookList.map(it => ([it.id, it])))
@@ -17,9 +17,11 @@ app.set('view engine', 'pug')
 //     res.sendFile(path.join(__dirname + '/index.html'))
 // })
 
+const click_id = crypto.randomUUID()
+
 app.get('/', (req, res) => {
     console.log('get books', req.query)
-    res.render('books', { books: bookList, style: booksStyle })
+    res.render('books', { books: bookList, style: booksStyle, click_id })
 })
 
 app.get('/book', (req, res) => {
