@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Beacon API</title>
+    <script type='text/javascript' src="/link.js"></script>
+</head>
+
+<body>
+    <h1>Beacon API</h1>
+    <div>
+        <p>
+            Added a listener:
+        <pre>
+                document.querySelector('#link').addEventListener('click', function () {
+                    navigator.sendBeacon('/beacon', 'beacon api message');
+                });
+            </pre>
+
+        A beacon request will be sent by Chrome after navigating.
+
+        <div style="padding-top: 15px;">
+            <p>
+                The Beacon API is used to send an asynchronous and non-blocking request to a web server. The request
+                does not expect a response.
+            </p>
+            <p>
+                The main use case for the Beacon API is to send analytics such as client-side events or session data to
+                the server.
+            </p>
+            Beacon API <a href="https://developer.mozilla.org/en-US/docs/Web/API/Beacon_API"
+                target="_blank">document</a>
+        </div>
+        </p>
+        <div>
+            <a id="link" href='/book?id=1001'>
+                Harry Potter
+            </a>
+        </div>
+        <div style="margin-top: 20px">
+            <beacon-a href='/book?id=1002'>
+                The Hunger Games
+            </beacon-a>
+        </div>
+
+    </div>
+    <script>
+        document.querySelector('#link').addEventListener('click', function () {
+            navigator.sendBeacon('/beacon', 'beacon api message');
+        });
+    </script>
+
+    <script>
+        /* Only for Chrome */
+        // navigation.addEventListener('navigate', (event) => {
+        //     if (location.href !== event.destination.url) {
+        //         event.intercept({
+        //             handler: async function () {
+        //                 navigator.sendBeacon('/beacon', 'beacon api message from navigation api');
+        //                 location.href = event.destination.url;
+        //             }
+        //         });
+        //     }
+        // });
+    </script>
+</body>
+
+</html>

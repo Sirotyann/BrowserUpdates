@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        const registerServiceWorker = async () => {
+            if ("serviceWorker" in navigator) {
+                try {
+                    const registration = await navigator.serviceWorker.register("/cache.js", {
+                        scope: "/",
+                    });
+                    if (registration.installing) {
+                        console.log("Service worker installing");
+                    } else if (registration.waiting) {
+                        console.log("Service worker installed");
+                    } else if (registration.active) {
+                        console.log("Service worker active");
+                    }
+                } catch (error) {
+                    console.error(`Registration failed with ${error}`);
+                }
+            }
+        };
+
+        registerServiceWorker();
+
+        // navigator.serviceWorker
+    </script>
+</head>
+
+<body>
+    <h1>Cache</h1>
+    <div id="app">
+        <button id="addToCacheButton" onclick="addToCache('/data')">Add</button>
+    </div>
+
+    <script type="text/javascript" src="/cache.js"></script>
+
+</body>
+
+</html>

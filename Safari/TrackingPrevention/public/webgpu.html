@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WebGPU Fingerprinting</title>
+    <script type="text/javascript">
+        var sha256 = (function () {
+
+            // Eratosthenes seive to find primes up to 311 for magic constants. This is why SHA256 is better than SHA1
+            var i = 1,
+                j,
+                K = [],
+                H = [];
+
+            while (++i < 18) {
+                for (j = i * i; j < 312; j += i) {
+                    K[j] = 1;
+                }
+            }
+
+            function x(num, root) {
+                return (Math.pow(num, 1 / root) % 1) * 4294967296 | 0;
+            }
+
+            for (i = 1, j = 0; i < 313;) {
+                if (!K[++i]) {
+                    H[j] = x(i, 2);
+                    K[j++] = x(i, 3);
+                }
+            }
+
+            function S(X, n) { return (X >>> n) | (X << (32 - n)); }
+
+            function SHA256(b) {
+                var HASH = H.slice(i = 0),
+                    s = unescape(encodeURI(b)), /* encode as utf8 */
+                    W = [],
+                    l = s.length,
+                    m = [],
+                    a, y, z;
+                for (; i < l;) m[i >> 2] |= (s.charCodeAt(i) & 0xff) << 8 * (3 - i++ % 4);
+
+                l *= 8;
+
+                m[l >> 5] |= 0x80 << (24 - l % 32);
+                m[z = (l + 64 >> 5) | 15] = l;
+
+                for (i = 0; i < z; i += 16) {
+                    a = HASH.slice(j = 0, 8);
+
+                    for (; j < 64; a[4] += y) {
+                        if (j < 16) {
+                            W[j] = m[j + i];
+                        } else {
+                            W[j] =
+                                (S(y = W[j - 2], 17) ^ S(y, 19) ^ (y >>> 10)) +
+                                (W[j - 7] | 0) +
+                                (S(y = W[j - 15], 7) ^ S(y, 18) ^ (y >>> 3)) +
+                                (W[j - 16] | 0);
+                        }
+
+                        a.unshift(
+                            (
+                                y = (
+                                    a.pop() +
+                                    (S(b = a[4], 6) ^ S(b, 11) ^ S(b, 25)) +
+                                    (((b & a[5]) ^ ((~b) & a[6])) + K[j]) | 0
+                                ) +
+                                (W[j++] | 0)
+                            ) +
+                            (S(l = a[0], 2) ^ S(l, 13) ^ S(l, 22)) +
+                            ((l & a[1]) ^ (a[1] & a[2]) ^ (a[2] & l))
+                        );
+                    }
+
+                    for (j = 8; j--;) HASH[j] = a[j] + HASH[j];
+                }
+
+                for (s = ''; j < 63;) s += ((HASH[++j >> 3] >> 4 * (7 - j % 8)) & 15).toString(16);
+
+                return s;
+            }
+
+            return SHA256;
+        })();
+
+    </script>
+</head>
+
+<body>
+    <h1>WebGPU Fingerprinting</h1>
+    <div><b>Device Hash:</b> <span id='device-hash-code'></span><br></div>
+    <div>
+        <ul id="device-info"></ul>
+    </div>
+    <div><b>Hash:</b> <span id='hash-code'></span><br></div>
+    <div><b>Image Src:</b> <span id='img-src' style='word-wrap: break-word;'></span><br></div>
+    <canvas id='myCanvas' width='200' height='40' style='border:1px solid #000000; display: block;'></canvas>
+    <script>
+        // Clear color for GPURenderPassDescriptor
+        const clearColor = { r: 0.0, g: 0.5, b: 1.0, a: 1.0 };
+
+        // Vertex data for triangle
+        // Each vertex has 8 values representing position and color: X Y Z W R G B A
+
+        const vertices = new Float32Array([
+            0.0, 0.6, 0, 1, 1, 0, 0, 1,
+            -0.5, -0.6, 0, 1, 0, 1, 0, 1,
+            0.5, -0.6, 0, 1, 0, 0, 1, 1
+        ]);
+
+        // Vertex and fragment shaders
+
+        const shaders = `
+struct VertexOut {
+  @builtin(position) position : vec4f,
+  @location(0) color : vec4f
+}
+
+@vertex
+fn vertex_main(@location(0) position: vec4f,
+               @location(1) color: vec4f) -> VertexOut
+{
+  var output : VertexOut;
+  output.position = position;
+  output.color = color;
+  return output;
+}
+
+@fragment
+fn fragment_main(fragData: VertexOut) -> @location(0) vec4f
+{
+  return fragData.color;
+}
+`;
+
+        let deviceInfo = [];
+
+        async function triangleDemo() {
+            // 1: request adapter and device
+            if (!navigator.gpu) {
+                throw Error('WebGPU not supported.');
+            }
+
+            const adapter = await navigator.gpu.requestAdapter();
+            if (!adapter) {
+                throw Error('Couldn\'t request WebGPU adapter.');
+            }
+
+            let device = await adapter.requestDevice();
+
+            console.log({adapter, device})
+            console.log(device.limits, JSON.stringify(device.limits),  Object.keys(device.limits))
+            const ul = document.querySelector("#device-info");
+            ul.innerHTML = '';
+            for(let key in device.limits) {
+                deviceInfo.push(`${key}-${device.limits[key]}`)
+                const li = document.createElement('li');
+                li.innerText = `${key}: ${device.limits[key]}`;
+                ul.append(li)
+            }
+            console.log({deviceInfo, src: deviceInfo.join(',')});
+            document.querySelector('#device-hash-code').innerHTML = sha256(deviceInfo.join(','))
+
+            // 2: Create a shader module from the shaders template literal
+            const shaderModule = device.createShaderModule({
+                code: shaders
+            });
+
+            // 3: Get reference to the canvas to render on
+            const canvas = document.querySelector('#myCanvas');
+            const context = canvas.getContext('webgpu');
+
+            context.configure({
+                device: device,
+                format: navigator.gpu.getPreferredCanvasFormat(),
+                alphaMode: 'premultiplied'
+            });
+
+            // 4: Create buffer
+            const vertexBuffer = device.createBuffer({
+                size: vertices.byteLength, // make it big enough to store vertices in
+                usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
+            });
+
+            // Copy the data over to the GPUBuffer using the writeBuffer() utility function
+            device.queue.writeBuffer(vertexBuffer, 0, vertices, 0, vertices.length);
+
+            // 5: Create a GPUVertexBufferLayout and GPURenderPipelineDescriptor to provide a definition of our render pipline
+            const vertexBuffers = [{
+                attributes: [{
+                    shaderLocation: 0, // position
+                    offset: 0,
+                    format: 'float32x4'
+                }, {
+                    shaderLocation: 1, // color
+                    offset: 16,
+                    format: 'float32x4'
+                }],
+                arrayStride: 32,
+                stepMode: 'vertex'
+            }];
+
+            const pipelineDescriptor = {
+                vertex: {
+                    module: shaderModule,
+                    entryPoint: 'vertex_main',
+                    buffers: vertexBuffers
+                },
+                fragment: {
+                    module: shaderModule,
+                    entryPoint: 'fragment_main',
+                    targets: [{
+                        format: navigator.gpu.getPreferredCanvasFormat()
+                    }]
+                },
+                primitive: {
+                    topology: 'triangle-list'
+                },
+                layout: 'auto'
+            };
+
+            // 6: Create the actual render pipeline
+
+            const renderPipeline = device.createRenderPipeline(pipelineDescriptor);
+
+            // 7: Create GPUCommandEncoder to issue commands to the GPU
+            // Note: render pass descriptor, command encoder, etc. are destroyed after use, fresh one needed for each frame.
+            const commandEncoder = device.createCommandEncoder();
+
+            // 8: Create GPURenderPassDescriptor to tell WebGPU which texture to draw into, then initiate render pass
+
+            const renderPassDescriptor = {
+                colorAttachments: [{
+                    clearValue: clearColor,
+                    loadOp: 'clear',
+                    storeOp: 'store',
+                    view: context.getCurrentTexture().createView()
+                }]
+            };
+
+            const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
+
+            // 9: Draw the triangle
+
+            passEncoder.setPipeline(renderPipeline);
+            passEncoder.setVertexBuffer(0, vertexBuffer);
+            passEncoder.draw(3);
+
+            // End the render pass
+            passEncoder.end();
+
+            // 10: End frame by passing array of command buffers to command queue for execution
+            device.queue.submit([commandEncoder.finish()]);
+        }
+
+        setTimeout(() => {
+            triangleDemo();
+            const canvas = document.querySelector('#myCanvas');
+            const src = canvas.toDataURL();
+
+            // document.querySelector('#img-src').innerHTML = src;
+            // document.querySelector('#hash-code').innerHTML = sha256(src);
+        }, 1)
+    </script>
+</body>
+
+</html>
