@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        function sendMessage(message) {
+            fetch(`/message?message=${message}`);
+        }
+        function onload() {
+            console.log("init events")
+            window.addEventListener('unload', () => {
+                sendMessage('unload');
+                console.log("unload");
+            });
+
+            window.addEventListener('visibilitychange', (e) => {
+                sendMessage('visibilitychange')
+                console.log("visibilitychange", e)
+            });
+
+            window.addEventListener('pagehide', (e) => {
+                sendMessage('pagehide');
+                console.log("pagehide", e)
+            });
+
+            // window.onunload = function() {
+            //     console.log("unload");
+            //     sendMessage('unload')
+            // };
+
+            // window.onvisibilitychange = function(){
+            //     console.log("visibilitychange", e)
+            //     sendMessage('visibilitychange')
+            // };
+
+            // window.onpagehide = function () {
+            //     console.log("pagehide", e)
+            //     sendMessage('pagehide');
+            // };
+        }
+    </script>
+</head>
+
+<body onload="onload()">
+    Page unload event will be deprecated in Chrome 117.
+
+    <a href="https://www.aylo.com/">Aylo</a>
+</body>
+
+</html>

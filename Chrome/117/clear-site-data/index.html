@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>Index</h1>
+
+    <div id="board" style="margin-top: 20px;">
+        <div id="cookie">
+            <div>
+                <button onclick="showCookie()">Show Cookie</button>
+                <button onclick="setCookie()">Set Cookie</button>
+            </div>
+            <label>Cookie:</label>
+            <p></p>
+        </div>
+
+        <div id="localStorage">
+            <div>
+                <button onclick="showLocalStorage()">Show localStorage</button>
+                <button onclick="setLocalStorage()">Set localStorage</button>
+            </div>
+            <label>localStorage:</label>
+            <p></p>
+        </div>
+        <div>
+            <button onclick="clearAll()">Clear</button>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        function setCookie() {
+            document.cookie = 'name="Harry Potter";'
+        }
+
+        function showCookie() {
+            document.querySelector('#cookie > p').innerText = document.cookie;
+        }
+
+        function setLocalStorage() {
+            localStorage.setItem('name', 'Harry Potter')
+        }
+
+        function showLocalStorage() {
+            document.querySelector('#localStorage > p').innerText = localStorage.getItem('name');
+        }
+
+        function clearAll() {
+            console.log('clear')
+            fetch('/clear').then(() => {
+                showCookie();
+                showLocalStorage();
+            });
+        }
+
+        showCookie();
+    </script>
+</body>
+
+</html>

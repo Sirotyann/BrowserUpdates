@@ -4,6 +4,15 @@ const app = express()
 const port = 3000
 const path = require('path')
 const fs = require('fs')
+// const express = require('express')
+// const path = require('path')
+// const fs = require('fs');
+// const http = require('http');
+// const https = require('https');
+// const privateKey = fs.readFileSync('../../../localhost-key.pem')
+// const certificate = fs.readFileSync('../../../localhost.pem')
+// const credentials = { key: privateKey, cert: certificate };
+const bodyParser = require('body-parser')
 const crypto = require('crypto');
 
 const bookList = require('./books.json')
@@ -13,13 +22,15 @@ const bookStyle = fs.readFileSync(path.resolve(__dirname, 'style/book.css'), 'ut
 
 app.set('view engine', 'pug')
 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/index.html'))
-// })
+app.use(bodyParser.text());
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'))
+})
 
 const click_id = crypto.randomUUID()
 
-app.get('/', (req, res) => {
+app.get('/books', (req, res) => {
     console.log('get books', req.query)
     res.render('books', { books: bookList, style: booksStyle, click_id })
 })
@@ -36,8 +47,18 @@ app.get('/.well-known', (req, res) => {
     })
 })
 
+app.post('/beacon', function (req, res) {
+    console.log('beacon: ', req.body)
+});
+
 app.use(express.static('public'))
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+// var httpServer = http.createServer(app);
+// var httpsServer = https.createServer(credentials, app);
+
+// httpServer.listen(8080);
+// httpsServer.listen(8443);

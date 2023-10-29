@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        html {
+            --bg-color: blue;
+        }
+
+        .blue {
+            background-color: blue;
+            padding: 30px;
+            width: 600px;
+            height: 300px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .overlay {
+            background: rgb(from var(--bg-color) r g b / 50%);
+            padding: 30px;
+            width: 600px;
+            height: 300px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Index</h1>
+    <div class="blue">
+        Blue
+        <p>
+            background-color: blue;
+        </p>
+    </div>
+    <div class="overlay">
+        Overlay
+        <p>
+            background: rgb(from var(--bg-color) r g b / 50%);
+        </p>
+    </div>
+</body>
+
+</html>

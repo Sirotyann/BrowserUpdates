@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+        Task chunking demo
+    </title>
+    <link rel="modulepreload" href="/script.js">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <h1>Yielding demo</h1>
+    <h2>Click the first button, then try the next two to see how different yielding strategies work.</h2>
+    <button id="setinterval" tabindex="0">
+        Run blocking tasks periodically (click me first)
+    </button>
+    <button id="noYield" tabindex="0">
+        Run loop without yielding
+    </button>
+    <button id="settimeout" tabindex="0">
+        Run loop, yielding with <code>setTimeout</code> on each iteration
+    </button>
+    <button id="schedulerdotyield" tabindex="0">
+        Run loop, yielding with <code>scheduler.yield</code> on each iteration
+    </button>
+    <button id="reload-demo" tabindex="0">
+        Reload demo
+    </button>
+    <button id="clear-queue" tabindex="0">
+        Clear task log
+    </button>
+    <div id="task-queue">
+        Task output will show up here.
+    </div>
+    <script src="/script.js" type="module"></script>
+</body>
+
+</html>

@@ -40,6 +40,8 @@ async function computeDemo() {
 
     const device = await adapter.requestDevice();
 
+    console.log({adapter, device})
+
     // 2: Create a shader module from the shader template literal
     const shaderModule = device.createShaderModule({
         code: shader

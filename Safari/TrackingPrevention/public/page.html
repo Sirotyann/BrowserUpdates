@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TEST PAGE - PAGE</title>
+	<!-- Place this inside the <head> element (if you have multiple ads, place it only once). -->
+	<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+	<style type="text/css">
+		#main {
+			padding: 0 auto;
+			padding-top: 30px;
+		}
+	</style>
+</head>
+
+<body>
+	<h3>TEST PAGE - URL stripping link</h3>
+	<div id='main'>
+		<p>
+			campaign_id: <span id="campaign_id"></span>
+		</p>
+		<p>
+			click_id: <span id="click_id"></span>
+		</p>
+		<p>
+			dclid: <span id="dclid"></span>
+		</p>
+		<p>
+			yclid: <span id="yclid"></span>
+		</p>
+
+	</div>
+	<script type="text/javascript">
+		console.log("TTTTTTTTTT")
+		const params = new URLSearchParams(window.location.search);
+		console.log("params", params)
+		Array.from(params.keys()).forEach(key => {
+			const element = document.getElementById(key);
+			if (element) {
+				element.innerText = params.get(key);
+			}
+		});
+	</script>
+</body>
+
+</html>

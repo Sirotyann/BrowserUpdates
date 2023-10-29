@@ -1,5 +1,3 @@
-console.log('hello');
-
 let draftsBucket;
 let myCache;
 let draftsDb;
@@ -13,9 +11,9 @@ async function init() {
 
     // myCache = await inboxBucket.caches.open('my_cache');
     draftsDb = await new Promise(resolve => {
+        console.log("draftsBucket", {draftsBucket})
         const request = draftsBucket.indexedDB.open("myDraft");
         request.onupgradeneeded = () => {
-            
             const db = request.result;
             console.log('onupgradeneeded', {db});
             const store = db.createObjectStore("books", { keyPath: "isbn" });

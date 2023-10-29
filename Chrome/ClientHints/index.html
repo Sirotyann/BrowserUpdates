@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        a {
+            margin: 10px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        canvas {
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 0 5px #333;
+        }
+
+        .translucent {
+            opacity: 0.4;
+
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            bottom: 100px;
+            left: 100px;
+            background: green;
+        }
+
+        @media (prefers-reduced-transparency) {
+            .translucent {
+                opacity: 0.8;
+                background: blue;
+            }
+        }
+    </style>
+    <script>
+        function report() {
+            fetch('/report').then(resp => console.log(resp))
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Accept-CH</h1>
+
+    <div style="margin-top: 20px;">
+        <button onclick="report()">Report</button>
+    </div>
+
+    <div>
+        <p>
+            The settings for Sec-CH-Prefers-Reduced-Transparency and Sec-CH-Prefers-Color-Scheme:
+        </p>
+        <p>
+            <img src="/ThemeAndTransparencySettings.jpg" width="800" />
+        </p>
+    </div>
+
+    <div class="translucent">
+        <div style="text-align: center; margin: 10px; color: white">
+            <p>Green if Transparency effects turned on.</p>
+            <p>Blue if Transparency effects turned off.</p>
+        </div>
+    </div>
+</body>
+
+</html>
