@@ -27,8 +27,13 @@
 
             Array.from({ length: 10 }).forEach((_, index) => {
                 // const priority = getRandomPriority();
-                const priority = 'low';//index > 4 ? 'high' : 'low';
-                fetch(`/hello?priority=${priority}&index=${index}`, { priority }).then(resp => resp.json()).then(resp => console.log(resp));
+                const priority = index > 4 ? 'high' : 'low';
+                fetch(`/hello?priority=${priority}&index=${index}`, { 
+                    priority,
+                    // headers: {
+                    //     Priority: `urgency=${10-index}`
+                    // }
+                }).then(resp => resp.json()).then(resp => console.log(resp));
             });
         }
     </script>

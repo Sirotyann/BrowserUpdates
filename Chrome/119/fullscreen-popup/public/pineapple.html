@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>a pineapple</title>
+    <script>
+        function requestFullScreen(){
+            document.getElementById('Snowman').requestFullscreen()
+        }
+    </script>
+</head>
+
+<body onload="requestFullScreen()">
+    <h2>I'm a pineapple</h2>
+    <img src="/PineApple.jpg" style="width: 100px" id="Snowman" />
+    <p>
+        requestFullScreen requires a user gesture, calling requestFullScreen in onload event listener will be stopped by browser
+    </p>
+    <button onclick="requestFullScreen()">fullscreen</button>
+</body>
+
+</html>

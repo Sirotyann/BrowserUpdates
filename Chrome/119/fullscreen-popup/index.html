@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>fullscreen popup demo</title>
+    <script type="text/javascript">
+        function openPopup() {
+            window.open('/pineapple.html', '_blank');
+            // window.open('/pineapple.html', '_blank', 'top=0,fullscreen')
+        }
+
+        function openFullScreenPopup() {
+            window.getScreenDetails().then(screen => {
+                const currentScreen = screen.currentScreen;
+                const param =  `left=${currentScreen.availLeft},top=${currentScreen.availTop},height=${currentScreen.availHeight},fullscreen`;
+
+                // const param = 'top=0,fullscreen';
+
+                console.log(param)
+
+                window.open('/snowman.html', '_blank', param);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <h2>
+            Request fullscreen popup
+        </h2>
+        <section>
+            <h3>Original</h3>
+            <p>
+                1. From the main app window, calling the window.open() method that requires a user gesture like the
+                click on an Open popup window button.
+            </p>
+            <p>
+                2. From the popup window, calling the Element.requestFullscreen() method, which likewise <strong style="color: red;">requires a user
+                gesture</strong> like the click on an Enter fullscreen mode button.
+            </p>
+            <button onclick="openPopup()">Request fullscreen</button>
+        </section>
+
+        <section style="margin-top: 50px">
+            <h3>With Window Management api</h3>
+            <p>
+                This new feature is gated behind the window-management permission. Once the user has granted the
+                permission, you can open a fullscreen popup window
+            </p>
+            <button onclick="openFullScreenPopup()">Request fullscreen</button>
+        </section>
+    </div>
+</body>
+
+</html>
