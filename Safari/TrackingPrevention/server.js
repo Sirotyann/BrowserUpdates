@@ -52,10 +52,17 @@ app.post('/beacon', function (req, res) {
 });
 
 app.post('/striptest', function(req, res) {
-    console.log('query', req.query);
-    console.log('body', req.body);
+    console.log('[Post] query', req.query);
+    console.log('[Post] body', req.body);
     res.send('OK')
 })
+
+app.get('/striptest', function(req, res) {
+    console.log('[Get] query', req.query);
+    console.log('[Get] body', req.body);
+    res.send('OK')
+})
+
 
 app.use(express.static('public'))
 

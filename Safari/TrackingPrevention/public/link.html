@@ -23,7 +23,7 @@
 		}
 	</style>
 	<script>
-		function test() {
+		function testPost() {
 			fetch('/striptest?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4', {
 				method: 'POST',
 				headers: {
@@ -38,6 +38,10 @@
 				})
 			}).then(console.log)
 		}
+
+		function testGet() {
+			fetch('/striptest?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4').then(console.log)
+		}
 	</script>
 </head>
 
@@ -48,7 +52,8 @@
 			Go to page with params "?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4"
 		</a>
 		<div style="margin-top: 30px">
-			<button onclick="test()">test</button>
+			<button onclick="testPost()">POST</button>
+			<button onclick="testGet()">GET</button>
 		</div>
 		<textarea width='800px' height='800px'></textarea>
 	</div>
