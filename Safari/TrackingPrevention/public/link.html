@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEST PAGE - LINK</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TEST PAGE - LINK</title>
 	<!-- Place this inside the <head> element (if you have multiple ads, place it only once). -->
 	<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
 	<style type="text/css">
@@ -21,14 +22,36 @@
 			height: 400px;
 		}
 	</style>
+	<script>
+		function test() {
+			fetch('/striptest?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4', {
+				method: 'POST',
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					name: 'Harry',
+					campaign_id: '23',
+					click_id: 'YmVh0DI1M',
+					dclid: 'AhSyjDUhnK',
+					yclid: 'mzmnGu4'
+				})
+			}).then(console.log)
+		}
+	</script>
 </head>
+
 <body>
-<h3>TEST PAGE - URL stripping link</h3>
-<div id='main'>
-	<a href="/page.html?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4">
-		Go to page with params "?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4"
-	</a>
-	<textarea width='800px' height='800px'></textarea>
-</div>
+	<h3>TEST PAGE - URL stripping link</h3>
+	<div id='main'>
+		<a href="/page.html?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4">
+			Go to page with params "?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4"
+		</a>
+		<div style="margin-top: 30px">
+			<button onclick="test()">test</button>
+		</div>
+		<textarea width='800px' height='800px'></textarea>
+	</div>
 </body>
+
 </html>

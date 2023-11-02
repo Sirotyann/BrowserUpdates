@@ -22,7 +22,7 @@ const bookStyle = fs.readFileSync(path.resolve(__dirname, 'style/book.css'), 'ut
 
 app.set('view engine', 'pug')
 
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'))
@@ -50,6 +50,12 @@ app.get('/.well-known', (req, res) => {
 app.post('/beacon', function (req, res) {
     console.log('beacon: ', req.body)
 });
+
+app.post('/striptest', function(req, res) {
+    console.log('query', req.query);
+    console.log('body', req.body);
+    res.send('OK')
+})
 
 app.use(express.static('public'))
 
