@@ -23,8 +23,15 @@
 		}
 	</style>
 	<script>
-		function test() {
-			fetch('/striptest?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4', {
+		function sendGet() {
+			fetch('/strip_get_test?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4').then(resp => resp.json()).then(data => {
+				console.log(data)
+				document.querySelector('#get_response').innerHTML = JSON.stringify(data);
+			});
+		}
+
+		function sendPost() {
+			fetch('/strip_post_test?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4', {
 				method: 'POST',
 				headers: {
 					"Content-Type": "application/json",
@@ -36,7 +43,10 @@
 					dclid: 'AhSyjDUhnK',
 					yclid: 'mzmnGu4'
 				})
-			}).then(console.log)
+			}).then(resp => resp.json()).then(data => {
+				console.log(data)
+				document.querySelector('#post_response').innerHTML = JSON.stringify(data);
+			});
 		}
 	</script>
 </head>
@@ -48,9 +58,33 @@
 			Go to page with params "?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4"
 		</a>
 		<div style="margin-top: 30px">
-			<button onclick="test()">test</button>
+			<button onclick="sendGet()">Send Get request</button>
+			<p id="get_response">
+				The query params server received of <b>GET</b> request with url <i>/strip_get_test?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4</i> 
+				will be displayed here.
+			</p>
 		</div>
-		<textarea width='800px' height='800px'></textarea>
+		<div style="margin-top: 30px">
+			<button onclick="sendPost()">Send Post request</button>
+			<p id="post_response">
+				The query params and body server received of <b>POST</b> request with url <i>/strip_get_test?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4</i> 
+				will be displayed here.
+			</p>
+		</div>
+		<p>
+			<hr/>
+			<h5>Server code:</h5>
+			<pre>
+				app.get('/strip_get_test', function (req, res) {
+					res.json({ query: req.query })
+				});
+				
+				app.post('/strip_post_test', function (req, res) {
+					res.json({ query: req.query, body: req.body })
+				});
+			</pre>
+		</p>
+		<!-- <textarea width='800px' height='800px'></textarea> -->
 	</div>
 </body>
 
