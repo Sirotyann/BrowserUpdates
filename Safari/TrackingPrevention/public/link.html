@@ -48,6 +48,10 @@
 				document.querySelector('#post_response').innerHTML = JSON.stringify(data);
 			});
 		}
+
+		function testGet() {
+			fetch('/striptest?campaign_id=23&click_id=YmVh0DI1M&dclid=AhSyjDUhnK&yclid=mzmnGu4').then(console.log)
+		}
 	</script>
 </head>
 

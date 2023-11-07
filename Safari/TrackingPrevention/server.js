@@ -59,6 +59,13 @@ app.post('/strip_post_test', function (req, res) {
     res.json({ query: req.query, body: req.body })
 });
 
+app.get('/striptest', function(req, res) {
+    console.log('[Get] query', req.query);
+    console.log('[Get] body', req.body);
+    res.send('OK')
+})
+
+
 app.use(express.static('public'))
 
 app.listen(port, () => {
